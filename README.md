@@ -1,5 +1,5 @@
 # JAXRS_Base_T9
-> Template project for RESTful API with JAX-RS (Jersey) on JEE8 and Tomcat 9
+> Template project for RESTful APIs with JAX-RS (Jersey) on JEE8 and Tomcat 9
  
  
 This is the skeleton of a Java web application configured to publish a RESTful API (with a sample resource) running on JEE 8 and Tomcat 9
