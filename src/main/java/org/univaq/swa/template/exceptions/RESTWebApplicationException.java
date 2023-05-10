@@ -1,4 +1,4 @@
-package org.univaq.swa.framework.base;
+package org.univaq.swa.template.exceptions;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

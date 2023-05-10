@@ -1,11 +1,11 @@
-package org.univaq.swa.framework.security;
+package org.univaq.swa.template.exceptions;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.univaq.swa.framework.base.CustomException;
+import org.univaq.swa.template.exceptions.CustomException;
 
 /**
  *
