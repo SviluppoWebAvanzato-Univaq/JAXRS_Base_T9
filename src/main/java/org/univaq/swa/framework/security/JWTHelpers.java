@@ -3,7 +3,6 @@ package org.univaq.swa.framework.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -38,31 +37,30 @@ public class JWTHelpers {
         return jwtKey;
     }
 
-    public static JWTHelpers getInstance() {
-        if (instance == null) {
-            instance = new JWTHelpers();
-        }
-        return instance;
-    }
-
     public String validateToken(String token) {
-        Jws<Claims> jwsc = Jwts.parserBuilder().setSigningKey(getJwtKey()).build().parseClaimsJws(token);
-        return jwsc.getBody().getSubject();
+        Jws<Claims> jwsc = Jwts.parser().verifyWith(getJwtKey()).build().parseSignedClaims(token);
+        return jwsc.getPayload().getSubject();
     }
 
     public String issueToken(UriInfo context, String username) {
-        Key key = getJwtKey();
         String token = Jwts.builder()
-                .setSubject(username)
-                .setIssuer(context.getAbsolutePath().toString())
-                .setIssuedAt(new Date())
-                .setExpiration(Date.from(LocalDateTime.now().plusMinutes(15L).atZone(ZoneId.systemDefault()).toInstant()))
-                .signWith(key)
+                .subject(username)
+                .issuer(context.getAbsolutePath().toString())
+                .issuedAt(new Date())
+                .expiration(Date.from(LocalDateTime.now().plusMinutes(15L).atZone(ZoneId.systemDefault()).toInstant()))
+                .signWith(getJwtKey())
                 .compact();
         return token;
     }
 
     public void revokeToken(String token) {
         /* invalidare il token */
+    }
+
+    public static JWTHelpers getInstance() {
+        if (instance == null) {
+            instance = new JWTHelpers();
+        }
+        return instance;
     }
 }
